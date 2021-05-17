@@ -1,0 +1,165 @@
+.memory {
+  background: rgb(14, 0, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(14, 0, 255, 0.9037990196078431) 0%,
+    rgba(255, 0, 0, 0.923406862745098) 100%
+  );
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .board {
+    width: 640px;
+    max-width: 100%;
+    height: 640px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    perspective: 1000px;
+    padding: 0;
+    .card {
+      width: calc(25% - 10px);
+      height: calc(50% - 10px);
+      max-height: 208px;
+      margin: 5px;
+      position: relative;
+      transform: scale(1);
+      transform-style: preserve-3d;
+      transition: transform 0.2s;
+      box-shadow: 0px 11px 11px 0px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      list-style: none;
+      cursor: pointer;
+      &:active {
+        transform: scale(0.97);
+        transition: transform 0.2s;
+      }
+
+      &.is-selected {
+        cursor: default;
+        transform: rotateY(180deg);
+      }
+      .front-face,
+      .back-face {
+        height: 100%;
+        position: absolute;
+        border-radius: 5px;
+        backface-visibility: hidden;
+        width: 100%;
+        user-select: none;
+        -moz-user-select: none;
+        -webkit-user-drag: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+      }
+      .front-face {
+        transform: rotateY(180deg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: left;
+        background-image: url("./images/frontTypes/normal.png");
+        background-size: cover;
+        //WORKAROUND FOR FINELY RESZING THE CLIP PATH BASED ON THE FRONT-TYPE IMAGE.
+        //(ALL FRONT-TYPES HAVE DIFFERENT SIZES)
+        &.electric {
+          background-image: url("./images/frontTypes/electric.jpeg");
+          .image-wrapper {
+            clip-path: inset(17.4% 9.9% 32.7% 10.1%);
+          }
+        }
+        &.fighting {
+          background-image: url("./images/frontTypes/fighting.jpeg");
+          .image-wrapper {
+            clip-path: inset(20.4% 10.9% 30.1% 11.3%);
+          }
+        }
+        &.fire {
+          background-image: url("./images/frontTypes/fire.jpeg");
+          .image-wrapper {
+            clip-path: inset(12.4% 8.9% 34.8% 8.9%);
+          }
+        }
+        &.ice {
+          background-image: url("./images/frontTypes/ice.jpeg");
+        }
+        &.grass {
+          background-image: url("./images/frontTypes/grass.png");
+          .image-wrapper {
+            clip-path: inset(14.9% 12.1% 32.6% 12.1%);
+          }
+        }
+        &.water {
+          background-image: url("./images/frontTypes/water.jpeg");
+          .image-wrapper {
+            clip-path: inset(11.8% 8.3% 34.7% 9.1%);
+          }
+        }
+        .name {
+          margin: 0;
+          font-size: 10px;
+          margin-top: 7px;
+        }
+        .image-wrapper {
+          clip-path: inset(13.2% 8.5% 30.4% 10.5%);
+          margin-top: -15px;
+          background: rgb(255, 255, 255);
+          background: linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 1) 16%,
+            rgba(110, 110, 110, 1) 100%
+          );
+          .image {
+            width: 100%;
+            height: 100%;
+            transform: scale(0.8);
+          }
+        }
+      }
+    }
+  }
+  .win-wrapper {
+    flex-grow: 1;
+    max-height: 180px;
+  }
+  @media screen and (min-width: 640px) and (min-height: 640px) {
+    .board {
+      .card {
+        height: calc(33.333% - 5px);
+      }
+    }
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 640px) and (orientation: portrait) {
+  html {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    width: 100vh;
+    height: 100vw;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    .spinner {
+      height: 100vw;
+    }
+    .memory {
+      height: 100vw;
+      .board {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+.spinner {
+  background: rgb(25, 27, 29);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #eee;
+}

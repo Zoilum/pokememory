@@ -17,6 +17,7 @@ import {
   shuffleCards,
   shouldCheckCards,
   foldCardsByIndexes,
+  getPokemonsFrontTypeImage,
 } from "./utils";
 
 function App() {
@@ -56,10 +57,23 @@ function App() {
         try {
           const pokemons = await Promise.all(randomPokemonsPromises);
           const pokemonsImageUrls = await getPokemonsImagesUrl(pokemons);
+          const pokemonsFrontTypesImageUrls = await getPokemonsFrontTypeImage(
+            pokemons
+          );
+          console.log(pokemonsFrontTypesImageUrls);
           try {
-            await preloadImgs(pokemonsImageUrls);
+            await preloadImgs([
+              ...pokemonsImageUrls,
+              ...pokemonsFrontTypesImageUrls,
+              backCoverImage,
+              victoryTextImage,
+            ]);
             await waitAndSetSpinner(false, "success", 750);
-            const mappedCards = mapCards(pokemons, pokemonsImageUrls);
+            const mappedCards = mapCards(
+              pokemons,
+              pokemonsImageUrls,
+              pokemonsFrontTypesImageUrls
+            );
             startGame(mappedCards);
           } catch (err) {
             handleLoadingError();
@@ -136,12 +150,14 @@ function App() {
 
   const mapCards = (
     pokemons: MemoryCardInterface[],
-    pokemonsImages: string[]
+    pokemonsImages: string[],
+    pokemonsFrontTypesImages: string[]
   ) => {
     return pokemons.map((pokemon, index) => {
       pokemon.index = index;
       pokemon.isSelected = false;
       pokemon.imageUrl = pokemonsImages[index];
+      pokemon.frontTypeImageUrl = pokemonsFrontTypesImages[index];
       return pokemon;
     });
   };
@@ -185,21 +201,24 @@ function App() {
         )}
       </div>
       <ul className="board">
-        {cards.map(({ isSelected, name, imageUrl, types }, index) => {
-          return (
-            <MemoryCard
-              key={index}
-              index={index}
-              isSelected={isSelected}
-              name={name}
-              handleCardClick={() => handleCardClick(index)}
-              cardImagePath={imageUrl!}
-              formattedName={getFormattedName(name)}
-              typeName={getType(types)}
-              backCoverImage={backCoverImage}
-            ></MemoryCard>
-          );
-        })}
+        {cards.map(
+          ({ isSelected, name, imageUrl, types, frontTypeImageUrl }, index) => {
+            return (
+              <MemoryCard
+                key={index}
+                index={index}
+                isSelected={isSelected}
+                name={name}
+                handleCardClick={() => handleCardClick(index)}
+                cardImagePath={imageUrl!}
+                formattedName={getFormattedName(name)}
+                typeName={getType(types)}
+                backCoverImage={backCoverImage}
+                frontTypeImageUrl={frontTypeImageUrl}
+              ></MemoryCard>
+            );
+          }
+        )}
       </ul>
     </div>
   );

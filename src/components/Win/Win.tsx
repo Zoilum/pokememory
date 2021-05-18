@@ -13,10 +13,6 @@ const Win = ({
       <button onClick={() => restartGame()} className="button">
         RESTART GAME
       </button>
-      <div className="pyro">
-        <div className="before"></div>
-        <div className="after"></div>
-      </div>
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { MemoryCardInterface } from "./interfaces/memory";
 import MemoryCard from "./components/MemoryCard/MemoryCard";
 import Loader from "./components/Loader/Loader";
 import Win from "./components/Win/Win";
+import Pyro from "./components/Pyro/Pyro";
 import backCoverImage from "./images/backCover.png";
 import victoryTextImage from "./images/victory-text.png";
 import {
@@ -16,7 +17,7 @@ import {
   duplicateCards,
   shuffleCards,
   shouldCheckCards,
-  foldCardsByIndexes,
+  checkMatchingCards,
   getPokemonsFrontTypeImage,
 } from "./utils";
 
@@ -51,33 +52,26 @@ function App() {
     const pokemonsCount = await getPokemonsCount();
     if (pokemonsCount) {
       try {
-        const randomPokemonsPromises = await getRandomPokemonsInRange(
-          pokemonsCount
+        const pokemons = await getRandomPokemonsInRange(pokemonsCount);
+        const pokemonsImageUrls = await getPokemonsImagesUrl(pokemons);
+        const pokemonsFrontTypesImageUrls = await getPokemonsFrontTypeImage(
+          pokemons
         );
         try {
-          const pokemons = await Promise.all(randomPokemonsPromises);
-          const pokemonsImageUrls = await getPokemonsImagesUrl(pokemons);
-          const pokemonsFrontTypesImageUrls = await getPokemonsFrontTypeImage(
-            pokemons
+          await preloadImgs([
+            ...pokemonsImageUrls,
+            ...pokemonsFrontTypesImageUrls,
+            backCoverImage,
+            victoryTextImage,
+          ]);
+          await waitAndSetSpinner(false, "success", 1000);
+          const mappedCards = mapCards(
+            pokemons,
+            pokemonsImageUrls,
+            pokemonsFrontTypesImageUrls
           );
-          try {
-            await preloadImgs([
-              ...pokemonsImageUrls,
-              ...pokemonsFrontTypesImageUrls,
-              backCoverImage,
-              victoryTextImage,
-            ]);
-            await waitAndSetSpinner(false, "success", 1000);
-            const mappedCards = mapCards(
-              pokemons,
-              pokemonsImageUrls,
-              pokemonsFrontTypesImageUrls
-            );
-            startGame(mappedCards);
-          } catch (err) {
-            handleLoadingError();
-          }
-        } catch {
+          startGame(mappedCards);
+        } catch (err) {
           handleLoadingError();
         }
       } catch {
@@ -87,19 +81,41 @@ function App() {
     return [];
   }, [startGame, waitAndSetSpinner]);
 
+  const resetGame = useCallback(() => {
+    setHasPlayerWon(false);
+    setCards([]);
+    setSelectedCards([]);
+    setCount(0);
+  }, []);
+
+  const foldCardAndUpdate = useCallback(
+    (card: MemoryCardInterface, index: number) => {
+      card.isSelected = false;
+      setCards([...cards.slice(0, index), card, ...cards.slice(index + 1)]);
+      setSelectedCards([]);
+      setCount(0);
+    },
+    [cards, setCards]
+  );
+
   const endGame = useCallback(async () => {
-    setHasPlayerWon(true);
-    await setTimeout(async () => {
-      await cards.forEach((card: MemoryCardInterface, index: number) => {
-        setTimeout(async () => {
-          card.isSelected = false;
-          setCards([...cards.slice(0, index), card, ...cards.slice(index + 1)]);
-          setSelectedCards([]);
-          setCount(0);
-        }, 190 * index);
-      });
-    }, 1000);
-  }, [cards]);
+    const delayInMs = 190;
+    setTimeout(async () => {
+      await Promise.all(
+        cards.map((card: MemoryCardInterface, index: number) => {
+          return new Promise((resolve) =>
+            setTimeout(
+              () => resolve(foldCardAndUpdate(card, index)),
+              delayInMs * index
+            )
+          );
+        })
+      );
+      setTimeout(() => {
+        setHasPlayerWon(true);
+      }, delayInMs);
+    }, 500);
+  }, [cards, foldCardAndUpdate]);
 
   useEffect(() => {
     initGame();
@@ -112,7 +128,7 @@ function App() {
 
       if (!shouldIncrementCount) {
         setTimeout(() => {
-          const newCards = foldCardsByIndexes(
+          const newCards = checkMatchingCards(
             cards,
             card1.index!,
             card2.index!
@@ -162,10 +178,7 @@ function App() {
   };
 
   const restartGame = () => {
-    setHasPlayerWon(false);
-    setCards([]);
-    setSelectedCards([]);
-    setCount(0);
+    resetGame();
     initGame();
   };
 
@@ -181,7 +194,9 @@ function App() {
   return shouldShowSpinner ? (
     <div className="loader-wrapper">
       {spinnerStatus === "failure" ? (
-        <h1>SOMETHING WENT WRONG, PLEASE REFRESH THE PAGE</h1>
+        <h1 className="text-center">
+          SOMETHING WENT WRONG, PLEASE REFRESH THE PAGE
+        </h1>
       ) : (
         ""
       )}
@@ -192,6 +207,7 @@ function App() {
   ) : (
     <div className="memory">
       <div className={hasPlayerWon ? "" : "is-hidden"}>
+        <Pyro></Pyro>
         <Win
           restartGame={restartGame}
           victoryImageText={victoryTextImage}

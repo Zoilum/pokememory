@@ -59,18 +59,20 @@ const getPokemonById = async (pokemonId: number) => {
 };
 
 const getRandomPokemonsInRange = async (max: number = 800) => {
-  return getRandomInts(4, max).map(async (randomNum) => {
-    try {
-      const pokemon = await getPokemonById(randomNum);
-      if (pokemon) {
-        return pokemon;
-      } else {
+  return Promise.all(
+    getRandomInts(4, max).map(async (randomNum) => {
+      try {
+        const pokemon = await getPokemonById(randomNum);
+        if (pokemon) {
+          return pokemon;
+        } else {
+          throw new Error("No pokemon found");
+        }
+      } catch (err) {
         throw new Error("No pokemon found");
       }
-    } catch (err) {
-      throw new Error("No pokemon found");
-    }
-  });
+    })
+  );
 };
 
 const getPokemonImageUrl = (pokemonId = "") => {
@@ -107,7 +109,7 @@ const shouldCheckCards = (cards: MemoryCardInterface[]) => {
   return cards && cards.length > 1;
 };
 
-const foldCardsByIndexes = (
+const checkMatchingCards = (
   cards: MemoryCardInterface[],
   card1Index: number,
   card2Index: number
@@ -150,6 +152,6 @@ export {
   duplicateCards,
   shuffleCards,
   shouldCheckCards,
-  foldCardsByIndexes,
+  checkMatchingCards,
   getPokemonsFrontTypeImage,
 };

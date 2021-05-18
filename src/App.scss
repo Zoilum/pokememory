@@ -69,10 +69,12 @@
   }
 }
 
-//UTILS
-
 // USED FOR PRELOADING IMAGES
 .is-hidden {
   opacity: 0;
   height: 0;
+}
+
+.text-center {
+  text-align: center;
 }

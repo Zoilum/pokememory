@@ -4,14 +4,14 @@ const Front = ({
   name,
   cardImagePath,
   formattedName,
-  typeName,
   frontTypeImageUrl,
+  typeName,
 }: MemoryCardInterface) => {
   return (
-    <div className={`front-face ${typeName ? typeName : ``}`}>
+    <div className={"front"}>
       <img alt={`${name}`} src={frontTypeImageUrl} className="background" />
       <p className="name">{formattedName}</p>
-      <div className="image-wrapper">
+      <div className={`image-wrapper ${typeName}`}>
         <img alt={`${name}`} src={cardImagePath} className="image" />
       </div>
     </div>

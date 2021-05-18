@@ -16,19 +16,27 @@ const MemoryCard = ({
       className={`card${isSelected ? ` is-selected` : ``}`}
       onClick={() => handleCardClick()}
     >
-      <div className={isSelected ? "" : "is-hidden"}>
+      <div
+        className={
+          isSelected ? `front-face-wrapper` : `is-hidden front-face-wrapper`
+        }
+      >
         <Front
           name={name}
           cardImagePath={cardImagePath}
           formattedName={formattedName}
-          typeName={typeName}
           frontTypeImageUrl={frontTypeImageUrl}
+          typeName={typeName}
         ></Front>
       </div>
       <img
         alt={`${name}`}
         src={backCoverImage}
-        className={isSelected ? "image back-face is-hidden" : "image back-face"}
+        className={
+          isSelected
+            ? "image back-face-wrapper is-hidden"
+            : "image back-face-wrapper"
+        }
       />
     </li>
   );

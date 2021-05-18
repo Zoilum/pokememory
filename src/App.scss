@@ -63,41 +63,47 @@
         text-align: left;
         background-size: cover;
         //WORKAROUND FOR FINELY RESZING THE CLIP PATH BASED ON THE FRONT-TYPE IMAGE.
-        //(ALL FRONT-TYPES HAVE DIFFERENT SIZES)
+        //(ALL FRONT-TYPES HAVE DIFFERENT SIZES 😡)
         &.electric {
           // background-image: url("./images/frontTypes/electric.png");
           .image-wrapper {
-            clip-path: inset(17.4% 9.9% 32.7% 10.1%);
+            clip-path: inset(19.1% 10.1% 33.4% 10%);
           }
         }
         &.fighting {
           // background-image: url("./images/frontTypes/fighting.png");
           .image-wrapper {
-            clip-path: inset(20.4% 10.9% 30.1% 11.3%);
+            clip-path: inset(22.4% 10.9% 30.1% 11.3%);
           }
         }
         &.fire {
           // background-image: url("./images/frontTypes/fire.png");
           .image-wrapper {
-            clip-path: inset(12.4% 8.9% 34.8% 8.9%);
+            clip-path: inset(14.5% 9% 34.3% 9.1%);
           }
         }
         &.ice {
           // background-image: url("./images/frontTypes/ice.png");
           .image-wrapper {
-            clip-path: inset(14.3% 12.1% 32.6% 11.9%);
+            clip-path: inset(16.5% 12.2% 31.9% 11.9%);
+          }
+        }
+        &.poison {
+          // background-image: url("./images/frontTypes/ice.png");
+          .image-wrapper {
+            clip-path: inset(16.6% 11.6% 31.4% 11.5%);
           }
         }
         &.grass {
           // background-image: url("./images/frontTypes/grass.png");
           .image-wrapper {
-            clip-path: inset(14.9% 12.1% 32.6% 12.1%);
+            clip-path: inset(16.7% 12.1% 32% 12%);
           }
         }
         &.water {
           // background-image: url("./images/frontTypes/water.png");
           .image-wrapper {
-            clip-path: inset(11.8% 8.3% 34.7% 9.1%);
+            clip-path: inset(13.9% 8.3% 34.3% 9%);
           }
         }
         .background {
@@ -106,21 +112,26 @@
           width: 100%;
           height: 100%;
           z-index: -1;
+          border-radius: 8px;
         }
         .name {
           margin: 0;
           font-size: 10px;
-          margin-top: 7px;
+          margin: 0;
+          position: absolute;
+          top: 4px;
         }
         .image-wrapper {
           clip-path: inset(13.2% 8.5% 30.4% 10.5%);
-          margin-top: -15px;
           background: rgb(255, 255, 255);
           background: linear-gradient(
             0deg,
             rgba(255, 255, 255, 1) 16%,
             rgba(110, 110, 110, 1) 100%
           );
+          width: 100%;
+          height: 75%;
+          clip-path: inset(15% 9.6% 30.6% 10.2%);
           .image {
             width: 100%;
             height: 100%;

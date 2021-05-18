@@ -61,42 +61,51 @@
         flex-direction: column;
         align-items: center;
         text-align: left;
-        background-image: url("./images/frontTypes/normal.png");
         background-size: cover;
         //WORKAROUND FOR FINELY RESZING THE CLIP PATH BASED ON THE FRONT-TYPE IMAGE.
         //(ALL FRONT-TYPES HAVE DIFFERENT SIZES)
         &.electric {
-          background-image: url("./images/frontTypes/electric.jpeg");
+          // background-image: url("./images/frontTypes/electric.png");
           .image-wrapper {
             clip-path: inset(17.4% 9.9% 32.7% 10.1%);
           }
         }
         &.fighting {
-          background-image: url("./images/frontTypes/fighting.jpeg");
+          // background-image: url("./images/frontTypes/fighting.png");
           .image-wrapper {
             clip-path: inset(20.4% 10.9% 30.1% 11.3%);
           }
         }
         &.fire {
-          background-image: url("./images/frontTypes/fire.jpeg");
+          // background-image: url("./images/frontTypes/fire.png");
           .image-wrapper {
             clip-path: inset(12.4% 8.9% 34.8% 8.9%);
           }
         }
         &.ice {
-          background-image: url("./images/frontTypes/ice.jpeg");
+          // background-image: url("./images/frontTypes/ice.png");
+          .image-wrapper {
+            clip-path: inset(14.3% 12.1% 32.6% 11.9%);
+          }
         }
         &.grass {
-          background-image: url("./images/frontTypes/grass.png");
+          // background-image: url("./images/frontTypes/grass.png");
           .image-wrapper {
             clip-path: inset(14.9% 12.1% 32.6% 12.1%);
           }
         }
         &.water {
-          background-image: url("./images/frontTypes/water.jpeg");
+          // background-image: url("./images/frontTypes/water.png");
           .image-wrapper {
             clip-path: inset(11.8% 8.3% 34.7% 9.1%);
           }
+        }
+        .background {
+          pointer-events: none;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
         }
         .name {
           margin: 0;

@@ -1,6 +1,6 @@
 import { MemoryCardInterface, PokemonType } from "./interfaces/memory";
 
-const preCacheImg = async (url: string) => {
+const preLoadImg = async (url: string) => {
   return new Promise((resolve, reject) => {
     const loadImg = new Image();
     loadImg.src = url;
@@ -15,7 +15,7 @@ const preloadImgs = async (urls: string[]) => {
   return Promise.all(
     urls.map((image) => {
       try {
-        return preCacheImg(image);
+        return preLoadImg(image);
       } catch (err) {
         return "err";
       }
@@ -120,8 +120,27 @@ const foldCardsByIndexes = (
   });
 };
 
+const getPokemonFrontTypeImageUrl = async (type: string) => {
+  let module;
+  try {
+    module = await import(`./images/frontTypes/${type}.png`);
+  } catch (err) {
+    module = await import("./images/frontTypes/normal.png");
+  }
+  return module.default;
+};
+
+const getPokemonsFrontTypeImage = (pokemons: MemoryCardInterface[]) => {
+  return Promise.all(
+    pokemons.map((pokemon: MemoryCardInterface) => {
+      const type = getType(pokemon.types);
+      return getPokemonFrontTypeImageUrl(type);
+    })
+  );
+};
+
 export {
-  preCacheImg,
+  preLoadImg,
   preloadImgs,
   getPokemonsCount,
   getRandomPokemonsInRange,
@@ -132,4 +151,5 @@ export {
   shuffleCards,
   shouldCheckCards,
   foldCardsByIndexes,
+  getPokemonsFrontTypeImage,
 };

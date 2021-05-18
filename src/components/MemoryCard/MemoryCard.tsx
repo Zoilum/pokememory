@@ -8,6 +8,7 @@ const MemoryCard = ({
   cardImagePath,
   formattedName,
   typeName,
+  frontTypeImageUrl,
 }: MemoryCardInterface) => {
   return (
     <li
@@ -20,6 +21,7 @@ const MemoryCard = ({
           cardImagePath={cardImagePath}
           formattedName={formattedName}
           typeName={typeName}
+          frontTypeImageUrl={frontTypeImageUrl}
         ></Front>
       ) : (
         <img alt={`${name}`} src={backCoverImage} className="image back-face" />

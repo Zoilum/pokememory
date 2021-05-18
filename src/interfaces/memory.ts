@@ -1,5 +1,3 @@
-export interface Pokemon {}
-
 export interface MemoryCardInterface {
   index?: number;
   isSelected?: boolean;
@@ -14,6 +12,7 @@ export interface MemoryCardInterface {
   typeName?: string;
   imageUrl?: string | undefined;
   backCoverImage?: string;
+  frontTypeImageUrl?: string;
 }
 
 export interface PokemonType {

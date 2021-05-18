@@ -5,6 +5,7 @@ import MemoryCard from "./components/MemoryCard/MemoryCard";
 import Loader from "./components/Loader/Loader";
 import Win from "./components/Win/Win";
 import backCoverImage from "./images/backCover.png";
+import victoryTextImage from "./images/victory-text.png";
 import {
   getPokemonsCount,
   preloadImgs,
@@ -73,6 +74,20 @@ function App() {
     return [];
   }, [startGame, waitAndSetSpinner]);
 
+  const endGame = useCallback(async () => {
+    setHasPlayerWon(true);
+    await setTimeout(async () => {
+      await cards.forEach((card: MemoryCardInterface, index: number) => {
+        setTimeout(async () => {
+          card.isSelected = false;
+          setCards([...cards.slice(0, index), card, ...cards.slice(index + 1)]);
+          setSelectedCards([]);
+          setCount(0);
+        }, 190 * index);
+      });
+    }, 1000);
+  }, [cards]);
+
   useEffect(() => {
     initGame();
   }, [initGame]);
@@ -98,26 +113,9 @@ function App() {
       setSelectedCards([]);
       setCount(count + 1);
     } else if (count === 4 && !hasPlayerWon) {
-      const endGame = async () => {
-        setHasPlayerWon(true);
-        await setTimeout(async () => {
-          await cards.forEach((card: MemoryCardInterface, index: number) => {
-            setTimeout(async () => {
-              card.isSelected = false;
-              setCards([
-                ...cards.slice(0, index),
-                card,
-                ...cards.slice(index + 1),
-              ]);
-              setSelectedCards([]);
-              setCount(0);
-            }, 190 * index);
-          });
-        }, 1000);
-      };
       endGame();
     }
-  }, [cards, count, selectedCards, hasPlayerWon]);
+  }, [cards, count, selectedCards, hasPlayerWon, endGame]);
 
   const handleCardClick = (clickedIndex: number) => {
     if (selectedCards.length === 2 || hasPlayerWon) {
@@ -179,7 +177,12 @@ function App() {
   ) : (
     <div className="memory">
       <div className="win-wrapper">
-        {hasPlayerWon && <Win restartGame={restartGame}></Win>}
+        {hasPlayerWon && (
+          <Win
+            restartGame={restartGame}
+            victoryImageText={victoryTextImage}
+          ></Win>
+        )}
       </div>
       <ul className="board">
         {cards.map(({ isSelected, name, imageUrl, types }, index) => {

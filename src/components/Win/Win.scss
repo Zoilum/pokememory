@@ -3,10 +3,26 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  justify-content: center;
   margin-top: 30px;
-
+  padding: 20px 0;
+  height: 180px;
+  position: absolute;
+  z-index: 1;
+  background: white;
+  width: 80%;
+  max-width: 720px;
+  margin: auto;
+  border-radius: 16px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  text-align: center;
+  bottom: 0;
+  box-shadow: 0px 11px 11px 0px rgba(0, 0, 0, 0.2);
   .image {
-    max-width: 50%;
+    max-width: 90%;
     margin-bottom: 30px;
   }
   .button {

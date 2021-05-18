@@ -1,9 +1,15 @@
 import "./Win.scss";
-import VictoryTextImage from "./victory-text.png";
-const Win = ({ restartGame }: { restartGame: Function }) => {
+
+const Win = ({
+  restartGame,
+  victoryImageText,
+}: {
+  restartGame: Function;
+  victoryImageText: string;
+}) => {
   return (
     <div className="win">
-      <img src={VictoryTextImage} alt="pokemon-font" className="image" />
+      <img src={victoryImageText} alt="pokemon-font" className="image" />
       <button onClick={() => restartGame()} className="button">
         RESTART GAME
       </button>

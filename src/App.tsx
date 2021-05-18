@@ -82,10 +82,10 @@ function App() {
   }, [startGame, waitAndSetSpinner]);
 
   const resetGame = useCallback(() => {
-    setHasPlayerWon(false);
     setCards([]);
     setSelectedCards([]);
     setCount(0);
+    setHasPlayerWon(false);
   }, []);
 
   const foldCardAndUpdate = useCallback(

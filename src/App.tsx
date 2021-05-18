@@ -37,7 +37,7 @@ function App() {
       if (delay) {
         setSpinnerStatus(spinnerStatus);
         return new Promise((resolve) =>
-          setTimeout(() => resolve(setShouldShowSpinner(isVisible)), 750)
+          setTimeout(() => resolve(setShouldShowSpinner(isVisible)), 1000)
         );
       } else {
         return setSpinner(isVisible, spinnerStatus);
@@ -60,7 +60,6 @@ function App() {
           const pokemonsFrontTypesImageUrls = await getPokemonsFrontTypeImage(
             pokemons
           );
-          console.log(pokemonsFrontTypesImageUrls);
           try {
             await preloadImgs([
               ...pokemonsImageUrls,
@@ -68,7 +67,7 @@ function App() {
               backCoverImage,
               victoryTextImage,
             ]);
-            await waitAndSetSpinner(false, "success", 750);
+            await waitAndSetSpinner(false, "success", 1000);
             const mappedCards = mapCards(
               pokemons,
               pokemonsImageUrls,

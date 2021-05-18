@@ -8,7 +8,7 @@ You can try the Demo here 👉 https://pokememory.vercel.app/
 
 ## Technologies
 
-This project is built using Create React App and Typescript.
+This project was built using Create React App and Typescript.
 No other external libraries were used.
 
 ## Next Steps

@@ -19,6 +19,7 @@
     flex-wrap: wrap;
     perspective: 1000px;
     padding: 0;
+    align-items: center;
     .card {
       width: calc(25% - 10px);
       height: calc(50% - 10px);
@@ -121,8 +122,28 @@
     }
   }
   .win-wrapper {
-    flex-grow: 1;
-    max-height: 180px;
+    .win {
+      padding: 20px 0;
+      height: 180px;
+      position: absolute;
+      z-index: 1;
+      background: white;
+      max-width: 80%;
+      margin: auto;
+      border-radius: 16px;
+      position: absolute;
+      margin-left: auto;
+      margin-right: auto;
+      left: 0;
+      right: 0;
+      top: 0;
+      text-align: center;
+      bottom: 0;
+      box-shadow: 0px 11px 11px 0px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
   @media screen and (min-width: 640px) and (min-height: 640px) {
     .board {

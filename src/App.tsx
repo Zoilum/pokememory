@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import "./App.scss";
 import { MemoryCardInterface } from "./interfaces/memory";
 import MemoryCard from "./components/MemoryCard/MemoryCard";
-import Loader from "./components/Loader/Loader";
+import Spinner from "./components/Spinner/Spinner";
 import Win from "./components/Win/Win";
 import Pyro from "./components/Pyro/Pyro";
 import backCoverImage from "./images/backCover.png";
@@ -192,7 +192,7 @@ function App() {
   };
 
   return shouldShowSpinner ? (
-    <div className="loader-wrapper">
+    <div className="spinner-wrapper">
       {spinnerStatus === "failure" ? (
         <h1 className="text-center">
           SOMETHING WENT WRONG, PLEASE REFRESH THE PAGE
@@ -201,7 +201,7 @@ function App() {
         ""
       )}
       <div>
-        <Loader loadingStatus={spinnerStatus}></Loader>
+        <Spinner loadingStatus={spinnerStatus}></Spinner>
       </div>
     </div>
   ) : (

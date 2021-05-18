@@ -1,5 +1,5 @@
-import "./Loader.scss";
-const Loader = ({ loadingStatus }: { loadingStatus: string }) => {
+import "./Spinner.scss";
+const Spinner = ({ loadingStatus }: { loadingStatus: string }) => {
   return (
     <svg
       viewBox="0 0 100 100"
@@ -106,4 +106,4 @@ const Loader = ({ loadingStatus }: { loadingStatus: string }) => {
   );
 };
 
-export default Loader;
+export default Spinner;

@@ -191,13 +191,11 @@ function App() {
     </div>
   ) : (
     <div className="memory">
-      <div className="win-wrapper">
-        {hasPlayerWon && (
-          <Win
-            restartGame={restartGame}
-            victoryImageText={victoryTextImage}
-          ></Win>
-        )}
+      <div className={hasPlayerWon ? "win-wrapper" : "win-wrapper is-hidden"}>
+        <Win
+          restartGame={restartGame}
+          victoryImageText={victoryTextImage}
+        ></Win>
       </div>
       <ul className="board">
         {cards.map(

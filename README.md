@@ -13,10 +13,17 @@ No other external libraries were used.
 
 ## Next Steps
 
-- Refactor
-- Write Unit Tests
-- Unify card's Front-Face template (create one "Pokémon's-type-based dynamic-colored" container, instead of fetching external images)
-- Display Pokémon's stats:
+- **Write Unit Tests**:
+  - Develop mocks in App.test.tsx
+- **Refactor style**:
+  - Optimize css using its cascade system, find common layouts/stylings.
+  - Extend use of css variables.
+  - Use mixin for shared layouts/stylings.
+- **Refactor TS**:
+  - Make code more "composable", using the functional approach where possible
+- **Unify card's Front-Face template**:
+  - Create one "Pokémon's-type-based dynamic-colored" container, instead of fetching external images
+- **Display Pokémon's stats**:
   - Power
   - Abilities
   - ecc.

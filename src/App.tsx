@@ -179,7 +179,7 @@ function App() {
   };
 
   return shouldShowSpinner ? (
-    <div className="spinner">
+    <div className="loader-wrapper">
       {spinnerStatus === "failure" ? (
         <h1>SOMETHING WENT WRONG, PLEASE REFRESH THE PAGE</h1>
       ) : (
@@ -191,7 +191,7 @@ function App() {
     </div>
   ) : (
     <div className="memory">
-      <div className={hasPlayerWon ? "win-wrapper" : "win-wrapper is-hidden"}>
+      <div className={hasPlayerWon ? "" : "is-hidden"}>
         <Win
           restartGame={restartGame}
           victoryImageText={victoryTextImage}

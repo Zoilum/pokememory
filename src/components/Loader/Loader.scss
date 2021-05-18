@@ -84,3 +84,13 @@ svg.failure g.center {
     transform: translateY(-18px);
   }
 }
+
+.spinner {
+  background: rgb(25, 27, 29);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #eee;
+}

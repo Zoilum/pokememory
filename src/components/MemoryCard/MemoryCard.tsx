@@ -1,4 +1,5 @@
 import { MemoryCardInterface } from "../../interfaces/memory";
+import "./Card.scss";
 import Front from "./Front";
 const MemoryCard = ({
   backCoverImage,

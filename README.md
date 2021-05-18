@@ -2,6 +2,10 @@
 
 A simple application that automatically fetches 4 random pokemons, and generates a playable "Memory" game.
 
+## Demo
+
+You can try the Demo here 👉 https://pokememory.vercel.app/
+
 ## Technologies
 
 This project is built using Create React App and Typescript.

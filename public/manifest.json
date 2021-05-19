@@ -1,12 +1,13 @@
 {
-  "short_name": "Pokémemory",
+  "display": "standalone",
+  "orientation": "landscape",
+  "short_name": "Memory",
   "name": "Pokémemory",
+  "start_url": ".",
+  "background_color": "#5e4bad",
+  "scope": "/",
+  "theme_color": "#5e4bad",
   "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
     {
       "src": "logo192.png",
       "type": "image/png",
@@ -18,8 +19,5 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "description": "A Pokèmon themed Memory-game"
 }

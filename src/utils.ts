@@ -76,7 +76,7 @@ const getRandomPokemonsInRange = async (max: number = 800) => {
 };
 
 const getPokemonImageUrl = (pokemonId = "") => {
-  return `https://pokeres.bastionbot.org/images/pokemon/${pokemonId}.png`;
+  return `https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${pokemonId}.svg`;
 };
 
 const getPokemonsImagesUrl = async (pokemons: MemoryCardInterface[]) => {

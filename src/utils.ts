@@ -33,14 +33,18 @@ const getRandomInts = (qty: number, max: number) => {
   });
 };
 
-const getPokemons = async () => {
-  return fetch("https://pokeapi.co/api/v2/pokemon-species/?limit=0");
-};
+// const getPokemons = async () => {
+//   return fetch("https://pokeapi.co/api/v2/pokemon-species/?limit=0");
+// };
 
 const getPokemonsCount = async () => {
-  const rawResponse = await getPokemons();
-  const parsedResponse = await rawResponse.json();
-  return parsedResponse.count;
+  return 151
+  // TODO: Endpoint that gives Pokemon count isn't synced with the endpoint that gives the images.
+  // E.g. If the count is 1023, the related image will return 404
+  // Fix it
+  // const rawResponse = await getPokemons();
+  // const parsedResponse = await rawResponse.json();
+  // return parsedResponse.count;
 };
 
 const getPokemonById = async (pokemonId: number) => {

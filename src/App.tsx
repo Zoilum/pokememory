@@ -49,9 +49,7 @@ function App() {
 
   const initGame = useCallback(async () => {
     setSpinner(true, "fetching");
-    // TODO: fix pokemon count
-    // const pokemonsCount = await getPokemonsCount();
-    const pokemonsCount = 151
+    const pokemonsCount = await getPokemonsCount();
     if (pokemonsCount) {
       try {
         const pokemons = await getRandomPokemonsInRange(pokemonsCount);
